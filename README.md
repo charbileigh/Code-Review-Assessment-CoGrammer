@@ -1,6 +1,5 @@
 # Code-Review-Assessment-CoGrammer
 
-
 # Reviews
 
 - Section A
@@ -15,4 +14,35 @@
         - So an alternative would be to have two pointers, one referencing the front and the other the rear
             - so if the front and rear pointers are null when adding then they would both point to the current object instance
             - if  not, we assign the rear #next to point to the incoming item or value instance
+
+            ```jsx
+            class Collection {
+                #value
+                #next
+                #tail
+
+                constructor(value, next) {
+                    this.#value = value
+                    this.#tail = null
+                    if (next) this.#next = new Collection(next)
+                    else this.#next = null
+                }
+
+                get value() { return this.#value }
+            		get next() { return this.#next }
+
+                add(value) {
+                    if (this.#tail){
+                         this = new Collection(value);
+            	           this.#tail = this
+                    }
+                    else {
+                         collection = new Collection(value);
+                         this.#tail.#next = collection
+                         this.#tail = collection
+                    }
+                }
+            }
+            ```
+
             - by adjusting the logic like above, we would get a runtime of O(1) because we're just reassigning references.
